@@ -1,0 +1,67 @@
+name: CI/CD Pipeline
+
+on:
+    pull_request:
+        branches:
+            - '**'
+    push:
+        branches: [master]
+
+jobs:
+    build-and-test:
+        runs-on: ubuntu-latest
+        if: github.event_name == 'pull_request' || github.ref == 'refs/heads/master'
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Install uv
+              run: pip install uv
+
+            - name: Install dependencies
+              run: uv sync --group dev
+
+            - name: Run tests with coverage
+              run: |
+                  TEST_RES=0
+                  COVERAGE_RES=0
+                  export UV_LINK_MODE=copy
+                  uv run coverage run -m pytest -v --junitxml=./test-reports/tests.xml || TEST_RES=$?
+                  uv run coverage report --skip-covered --skip-empty --sort Cover
+                  uv run coverage json -o ./test-reports/coverage.json
+                  uv run coverage-threshold --line-coverage-min 80 --file-line-coverage-min 25 --coverage-json ./test-reports/coverage.json || COVERAGE_RES=$?
+                  if (( $TEST_RES != 0 )); then echo 'Some tests have failed, check the Tests tab' && false ; else true ; fi
+                  if (( $COVERAGE_RES != 0 )); then echo 'Tests coverage did not meet the required minimum, check the coverage threshold step' && false ; else true ; fi
+
+    deploy:
+        runs-on: ubuntu-latest
+        needs: build-and-test
+        if: github.ref == 'refs/heads/master'
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Install dependencies
+              run: |
+                  pip install awscli uv twine --upgrade
+                  uv sync --group publish
+
+            - name: Update version with build number
+              run: |
+                  MAJOR_MINOR=$(grep '^version = ' pyproject.toml | sed 's/version = "\([0-9]*\)\.\([0-9]*\)\..*"/\1.\2/')
+                  GITHUB_RUN_NUMBER=${{ github.run_number }}
+                  sed -i "s/version = \".*\"/version = \"${MAJOR_MINOR}.${GITHUB_RUN_NUMBER}\"/" pyproject.toml
+
+            - name: Build and Publish to CodeArtifact
+              env:
+                  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                  AWS_DEFAULT_REGION: us-east-1
+              run: |
+                  export TWINE_USERNAME=aws
+                  export TWINE_PASSWORD=$(aws codeartifact get-authorization-token --domain beehero --query authorizationToken --output text)
+                  export TWINE_REPOSITORY_URL=$(aws codeartifact get-repository-endpoint --domain beehero --repository python --format pypi --query repositoryEndpoint --output text)
+                  uv build
+                  twine upload -r beehero dist/*
