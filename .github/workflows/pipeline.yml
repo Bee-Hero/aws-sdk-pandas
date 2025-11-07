@@ -11,6 +11,7 @@ jobs:
     deploy:
         runs-on: ubuntu-latest
         if: github.ref == 'refs/heads/main'
+        secrets: inherit
 
         steps:
             - name: Checkout code
@@ -37,5 +38,6 @@ jobs:
                 export TWINE_PASSWORD=$(aws codeartifact get-authorization-token --domain beehero --query authorizationToken --output text)
                 export TWINE_REPOSITORY_URL=$(aws codeartifact get-repository-endpoint --domain beehero --repository python --format pypi --query repositoryEndpoint --output text)
                 uv build
-                twine upload --repository-url "$TWINE_REPOSITORY_URL" -u "$TWINE_USERNAME" -p "$TWINE_PASSWORD" dist/*
+#                twine upload --repository-url "$TWINE_REPOSITORY_URL" -u "$TWINE_USERNAME" -p "$TWINE_PASSWORD" dist/*
+                echo ${TWINE_REPOSITORY_URL}
             
