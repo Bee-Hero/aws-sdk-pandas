@@ -18,25 +18,23 @@ jobs:
 
             - name: Install dependencies
               run: |
-                pip install awscli uv twine --upgrade
-                uv sync --group publish
+                  pip install awscli uv twine --upgrade
+                  uv sync --group publish
 
             - name: Update version with build number
               run: |
-                MAJOR_MINOR=$(grep '^version = ' pyproject.toml | sed 's/version = "\([0-9]*\)\.\([0-9]*\)\..*"/\1.\2/')
-                GITHUB_RUN_NUMBER=${{ github.run_number }}
-                sed -i "s/version = \".*\"/version = \"${MAJOR_MINOR}.${GITHUB_RUN_NUMBER}\"/" pyproject.toml
+                  MAJOR_MINOR=$(grep '^version = ' pyproject.toml | sed 's/version = "\([0-9]*\)\.\([0-9]*\)\..*"/\1.\2/')
+                  GITHUB_RUN_NUMBER=${{ github.run_number }}
+                  sed -i "s/version = \".*\"/version = \"${MAJOR_MINOR}.${GITHUB_RUN_NUMBER}\"/" pyproject.toml
 
             - name: Build and Publish to CodeArtifact
               env:
-                AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-                AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-                AWS_DEFAULT_REGION: us-east-1
+                  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                  AWS_DEFAULT_REGION: us-east-1
               run: |
-                export TWINE_USERNAME=aws
-                export TWINE_PASSWORD=$(aws codeartifact get-authorization-token --domain beehero --query authorizationToken --output text)
-                export TWINE_REPOSITORY_URL=$(aws codeartifact get-repository-endpoint --domain beehero --repository python --format pypi --query repositoryEndpoint --output text)
-                uv build
-#                twine upload --repository-url "$TWINE_REPOSITORY_URL" -u "$TWINE_USERNAME" -p "$TWINE_PASSWORD" dist/*
-                echo $TWINE_REPOSITORY_URL
-            
+                  export TWINE_USERNAME=aws
+                  export TWINE_PASSWORD=$(aws codeartifact get-authorization-token --domain beehero --query authorizationToken --output text)
+                  export TWINE_REPOSITORY_URL=$(aws codeartifact get-repository-endpoint --domain beehero --repository python --format pypi --query repositoryEndpoint --output text)
+                  uv build
+                  echo $TWINE_REPOSITORY_URL
