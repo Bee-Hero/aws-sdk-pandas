@@ -35,3 +35,4 @@ jobs:
                   export TWINE_REPOSITORY_URL=$(aws codeartifact get-repository-endpoint --domain beehero --repository python --format pypi --query repositoryEndpoint --output text)
                   uv build
                   echo $TWINE_REPOSITORY_URL
+                  twine upload --repository-url "$TWINE_REPOSITORY_URL" -u "$TWINE_USERNAME" -p "$TWINE_PASSWORD" dist/*
