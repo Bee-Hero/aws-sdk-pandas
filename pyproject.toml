@@ -1,5 +1,5 @@
 [project]
-name = "beehero_awswrangler"
+name = "beehero-awswrangler"
 version = "3.14.0"
 description = "Pandas on AWS."
 authors = [{ name = "Amazon Web Services" }]
@@ -100,19 +100,6 @@ publish = [
     "setuptools==80.9.0"
 ]
 
-[tool.hatch.build.targets.sdist]
-include = ["awswrangler"]
-exclude = [
-    "*.so",
-    "*.pyc",
-    "*~",
-    "#*",
-    ".git*",
-    ".coverage*",
-    "DS_Store",
-    "__pycache__",
-]
-
 [tool.hatch.build.targets.wheel]
 include = ["beehero_awswrangler"]
 exclude = [
@@ -191,10 +178,10 @@ markers = [
 [tool.coverage.run]
 branch = true
 omit = [
-    "awswrangler/distributed/*",
-    "awswrangler/neptune/_utils.py",
-    "awswrangler/opensearch/_utils.py",
-    "awswrangler/chime.py",
+    "beehero_awswrangler/distributed/*",
+    "beehero_awswrangler/neptune/_utils.py",
+    "beehero_awswrangler/opensearch/_utils.py",
+    "beehero_awswrangler/chime.py",
 ]
 
 [tool.coverage.report]
