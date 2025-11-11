@@ -127,8 +127,11 @@ exclude = [
 ]
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling==1.26.3"]   # important
 build-backend = "hatchling.build"
+
+[tool.hatch.metadata]
+core-metadata-version = "2.1"
 
 [tool.ruff]
 extend-include = ["*.ipynb"]
@@ -197,5 +200,4 @@ omit = [
 [tool.coverage.report]
 show_missing = true
 
-[tool.hatch.metadata]
-core-metadata-version = "2.1"
+
