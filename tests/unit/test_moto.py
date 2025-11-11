@@ -11,15 +11,15 @@ import pandas as pd
 import pytest
 from botocore.exceptions import ClientError
 
-import awswrangler as wr
-from awswrangler.exceptions import InvalidArgumentCombination, InvalidArgumentValue
+import beehero_awswrangler as wr
+from beehero_awswrangler.exceptions import InvalidArgumentCombination, InvalidArgumentValue
 
 from .._utils import _get_unique_suffix, ensure_data_types, get_df_csv, get_df_list
 
 if TYPE_CHECKING:
     from mypy_boto3_s3.client import S3Client
 
-logging.getLogger("awswrangler").setLevel(logging.DEBUG)
+logging.getLogger("beehero_awswrangler").setLevel(logging.DEBUG)
 
 
 @pytest.fixture(scope="module")

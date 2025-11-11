@@ -11,13 +11,13 @@ import botocore
 import opensearchpy
 import pytest  # type: ignore
 
-import awswrangler as wr
-import awswrangler.pandas as pd
-from awswrangler.opensearch._utils import _is_serverless
+import beehero_awswrangler as wr
+import beehero_awswrangler.pandas as pd
+from beehero_awswrangler.opensearch._utils import _is_serverless
 
 from .._utils import _get_unique_suffix, extract_cloudformation_outputs
 
-logging.getLogger("awswrangler").setLevel(logging.DEBUG)
+logging.getLogger("beehero_awswrangler").setLevel(logging.DEBUG)
 
 pytestmark = pytest.mark.distributed
 

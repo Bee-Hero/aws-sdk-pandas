@@ -2,12 +2,12 @@ import logging
 
 import pytest
 
-import awswrangler as wr
-import awswrangler.pandas as pd
+import beehero_awswrangler as wr
+import beehero_awswrangler.pandas as pd
 
 from .._utils import dt, to_pandas, ts
 
-logging.getLogger("awswrangler").setLevel(logging.DEBUG)
+logging.getLogger("beehero_awswrangler").setLevel(logging.DEBUG)
 
 pytestmark = pytest.mark.distributed
 

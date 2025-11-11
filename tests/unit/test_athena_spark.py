@@ -1,6 +1,6 @@
 import pytest
 
-import awswrangler as wr
+import beehero_awswrangler as wr
 from tests._utils import create_workgroup
 
 

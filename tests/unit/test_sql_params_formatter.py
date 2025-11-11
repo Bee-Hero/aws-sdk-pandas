@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 import pytest
 
-from awswrangler._sql_formatter import _Engine, _format_parameters, _HiveEngine, _PrestoEngine
+from beehero_awswrangler._sql_formatter import _Engine, _format_parameters, _HiveEngine, _PrestoEngine
 
 _hive_engine_param = pytest.param(_HiveEngine(), id="hive")
 _presto_engine_param = pytest.param(_PrestoEngine(), id="presto")

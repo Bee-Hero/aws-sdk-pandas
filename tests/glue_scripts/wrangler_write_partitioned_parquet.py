@@ -1,6 +1,6 @@
 import os
 
-import awswrangler as wr
+import beehero_awswrangler as wr
 
 df = wr.s3.read_parquet(
     path=f"s3://{os.environ['data-gen-bucket']}/parquet/medium/partitioned/",

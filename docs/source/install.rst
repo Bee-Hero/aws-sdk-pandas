@@ -16,7 +16,7 @@ PyPI (pip)
     >>> pip install awswrangler
 
     >>> # Optional modules are installed with:
-    >>> pip install 'awswrangler[redshift]'
+    >>> pip install 'beehero_awswrangler[redshift]'
 
 Conda
 -----
@@ -28,7 +28,7 @@ At scale
 
 AWS SDK for pandas can also run your workflows at scale by leveraging `modin <https://modin.readthedocs.io/en/stable/>`_ and `ray <https://www.ray.io/>`_.
 
-    >>> pip install "awswrangler[modin,ray]"
+    >>> pip install "beehero_awswrangler[modin,ray]"
 
 As a result existing scripts can run on significantly larger datasets with no code rewrite.
 
@@ -37,7 +37,7 @@ Optional dependencies
 
 Starting version 3.0, some ``awswrangler`` modules are optional and must be installed explicitly using:
 
-    >>> pip install 'awswrangler[optional-module1, optional-module2]'
+    >>> pip install 'beehero_awswrangler[optional-module1, optional-module2]'
 
 The optional modules are:
 
@@ -351,7 +351,7 @@ After installing these header files you can either just install ``pyodbc`` or
 ``awswrangler`` with the ``sqlserver`` extra, which will also install ``pyodbc``:
 
     >>> pip install pyodbc
-    >>> pip install 'awswrangler[sqlserver]'
+    >>> pip install 'beehero_awswrangler[sqlserver]'
 
 Finally you also need the correct ODBC Driver for SQL Server. You can have a look at the
 `documentation from Microsoft <https://docs.microsoft.com/sql/connect/odbc/
@@ -381,7 +381,7 @@ After installing these client libraries you can either just install ``oracledb``
 ``awswrangler`` with the ``oracle`` extra, which will also install ``oracledb``:
 
     >>> pip install oracledb
-    >>> pip install 'awswrangler[oracle]'
+    >>> pip install 'beehero_awswrangler[oracle]'
 
 If you maintain your own environment, you need to take care of the above steps.
 Because of this limitation usage in combination with Glue jobs is limited and you need to rely on the

@@ -14,7 +14,7 @@ import botocore.exceptions
 import pyarrow.parquet.encryption as pe
 import pytest
 
-import awswrangler as wr
+import beehero_awswrangler as wr
 
 from ._utils import create_workgroup, extract_cloudformation_outputs, get_time_str_with_random_suffix, path_generator
 
@@ -516,14 +516,14 @@ def local_filename() -> Iterator[str]:
 
 @pytest.fixture(scope="function", name="wr")
 def awswrangler_import() -> Iterator[ModuleType]:
-    import awswrangler
+    import beehero_awswrangler
 
-    awswrangler.config.reset()
+    beehero_awswrangler.config.reset()
 
-    yield reload(awswrangler)
+    yield reload(beehero_awswrangler)
 
     # Reset for future tests
-    awswrangler.config.reset()
+    beehero_awswrangler.config.reset()
 
 
 @pytest.fixture(scope="function")

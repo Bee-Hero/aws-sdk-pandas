@@ -10,8 +10,8 @@ import numpy as np
 import pytest
 from pandas import DataFrame as PandasDataFrame
 
-import awswrangler as wr
-import awswrangler.pandas as pd
+import beehero_awswrangler as wr
+import beehero_awswrangler.pandas as pd
 
 from .._utils import (
     assert_pandas_equals,
@@ -27,7 +27,7 @@ from .._utils import (
     pandas_equals,
 )
 
-logging.getLogger("awswrangler").setLevel(logging.DEBUG)
+logging.getLogger("beehero_awswrangler").setLevel(logging.DEBUG)
 
 pytestmark = pytest.mark.distributed
 
@@ -1746,7 +1746,7 @@ def test_read_sql_query_ctas_write_compression(path, glue_database, glue_table, 
     )
 
     with patch(
-        "awswrangler.athena._read.create_ctas_table", wraps=wr.athena.create_ctas_table
+        "beehero_awswrangler.athena._read.create_ctas_table", wraps=wr.athena.create_ctas_table
     ) as mock_create_ctas_table:
         wr.athena.read_sql_query(
             sql=f"SELECT * FROM {glue_table}",

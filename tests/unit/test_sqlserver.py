@@ -9,13 +9,13 @@ import pyarrow as pa
 import pyodbc
 import pytest
 
-import awswrangler as wr
-import awswrangler.pandas as pd
-from awswrangler import _databases as _db_utils
+import beehero_awswrangler as wr
+import beehero_awswrangler.pandas as pd
+from beehero_awswrangler import _databases as _db_utils
 
 from .._utils import ensure_data_types, get_df, pandas_equals
 
-logging.getLogger("awswrangler").setLevel(logging.DEBUG)
+logging.getLogger("beehero_awswrangler").setLevel(logging.DEBUG)
 
 pytestmark = pytest.mark.distributed
 

@@ -4,7 +4,7 @@ import boto3
 import pytest
 from botocore.exceptions import ClientError
 
-import awswrangler as wr
+import beehero_awswrangler as wr
 
 from .._utils import (
     ensure_athena_query_metadata,
@@ -13,7 +13,7 @@ from .._utils import (
     get_time_str_with_random_suffix,
 )
 
-logging.getLogger("awswrangler").setLevel(logging.DEBUG)
+logging.getLogger("beehero_awswrangler").setLevel(logging.DEBUG)
 
 pytestmark = pytest.mark.distributed
 

@@ -13,6 +13,22 @@ Install the library with the these two optional dependencies to enable distribut
 
 Once installed, you can use the library in your code as usual:
 
+    >>> import beehero_awswrangler as wr
+
+At import, SDK for pandas checks if
+
+    >>> pip install "awswrangler[ray,modin]"
+
+Once installed, you can use the library in your code as usual:
+
+    >>> import beehero_awswrangler as wr
+
+At import, SDK for pandas checks if
+
+    >>> pip install "beehero_awswrangler[ray,modin]"
+
+Once installed, you can use the library in your code as usual:
+
     >>> import awswrangler as wr
 
 At import, SDK for pandas checks if ``ray`` and ``modin`` are in the installation path and enables distributed mode.

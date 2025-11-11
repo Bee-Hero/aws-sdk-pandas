@@ -4,10 +4,10 @@ from datetime import datetime
 import boto3
 import pytest
 
-import awswrangler as wr
-from awswrangler import exceptions
+import beehero_awswrangler as wr
+from beehero_awswrangler import exceptions
 
-logging.getLogger("awswrangler").setLevel(logging.DEBUG)
+logging.getLogger("beehero_awswrangler").setLevel(logging.DEBUG)
 
 pytestmark = pytest.mark.distributed
 

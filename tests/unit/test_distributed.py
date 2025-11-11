@@ -7,24 +7,24 @@ import pytest
 
 from .._utils import is_ray_modin
 
-logging.getLogger("awswrangler").setLevel(logging.DEBUG)
+logging.getLogger("beehero_awswrangler").setLevel(logging.DEBUG)
 
 pytestmark = pytest.mark.distributed
 
 
 @pytest.fixture(scope="function")
 def wr() -> Iterator[ModuleType]:
-    import awswrangler
+    import beehero_awswrangler
 
-    awswrangler.engine.__class__._engine = None
-    awswrangler.engine.__class__._initialized_engine = None
-    awswrangler.engine.__class__._registry.clear()
+    beehero_awswrangler.engine.__class__._engine = None
+    beehero_awswrangler.engine.__class__._initialized_engine = None
+    beehero_awswrangler.engine.__class__._registry.clear()
 
-    yield reload(awswrangler)
+    yield reload(beehero_awswrangler)
 
     # Reset for future tests
-    awswrangler.engine.set(awswrangler.engine.get_installed().value)
-    awswrangler.memory_format.set(awswrangler.memory_format.get_installed().value)
+    beehero_awswrangler.engine.set(beehero_awswrangler.engine.get_installed().value)
+    beehero_awswrangler.memory_format.set(beehero_awswrangler.memory_format.get_installed().value)
 
 
 @pytest.mark.skipif(condition=not is_ray_modin, reason="ray not available")
@@ -34,8 +34,8 @@ def test_engine_initialization(wr: ModuleType, path: str) -> None:
 
 @pytest.mark.skipif(condition=not is_ray_modin, reason="ray not available")
 def test_engine_python(wr: ModuleType) -> None:
-    from awswrangler._distributed import EngineEnum
-    from awswrangler.s3._write_parquet import _to_parquet
+    from beehero_awswrangler._distributed import EngineEnum
+    from beehero_awswrangler.s3._write_parquet import _to_parquet
 
     assert wr.engine.get_installed() == EngineEnum.RAY
     assert wr.engine.get() == EngineEnum.RAY
@@ -49,8 +49,8 @@ def test_engine_python(wr: ModuleType) -> None:
 
 @pytest.mark.skipif(condition=not is_ray_modin, reason="ray not available")
 def test_engine_ray(wr: ModuleType) -> None:
-    from awswrangler._distributed import EngineEnum
-    from awswrangler.s3._write_parquet import _to_parquet
+    from beehero_awswrangler._distributed import EngineEnum
+    from beehero_awswrangler.s3._write_parquet import _to_parquet
 
     assert wr.engine.get_installed() == EngineEnum.RAY
     assert wr.engine.get() == EngineEnum.RAY
@@ -62,8 +62,8 @@ def test_engine_ray(wr: ModuleType) -> None:
 
 @pytest.mark.skipif(condition=is_ray_modin, reason="ray is installed")
 def test_engine_python_without_ray_installed(wr: ModuleType) -> None:
-    from awswrangler._distributed import EngineEnum
-    from awswrangler.s3._write_parquet import _to_parquet
+    from beehero_awswrangler._distributed import EngineEnum
+    from beehero_awswrangler.s3._write_parquet import _to_parquet
 
     assert wr.engine.get_installed() == EngineEnum.PYTHON
     assert wr.engine.get() == EngineEnum.PYTHON

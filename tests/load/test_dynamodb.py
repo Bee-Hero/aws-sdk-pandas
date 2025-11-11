@@ -8,7 +8,7 @@ import modin.pandas as pd
 import pytest
 import ray
 
-import awswrangler as wr
+import beehero_awswrangler as wr
 
 from .._utils import ExecutionTimer
 

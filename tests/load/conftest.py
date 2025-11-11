@@ -3,7 +3,7 @@ import pytest
 import ray
 from pyarrow import csv
 
-import awswrangler as wr
+import beehero_awswrangler as wr
 
 
 @pytest.fixture(scope="function")

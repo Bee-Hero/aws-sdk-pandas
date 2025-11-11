@@ -52,7 +52,7 @@ class GlueRayStack(Stack):  # type: ignore
         bucket.grant_read_write(self.glue_service_role)
 
         # Where should the ZIP be uploaded
-        zip_key = "awswrangler.zip"
+        zip_key = "beehero_awswrangler.zip"
         self.wrangler_asset_path = self.script_bucket.s3_url_for_object(zip_key)
 
         # CFN outputs

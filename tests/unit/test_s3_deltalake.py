@@ -5,8 +5,8 @@ from typing import Any, Iterator
 import boto3
 import pytest
 
-import awswrangler as wr
-import awswrangler.pandas as pd
+import beehero_awswrangler as wr
+import beehero_awswrangler.pandas as pd
 
 from .._utils import (
     get_time_str_with_random_suffix,

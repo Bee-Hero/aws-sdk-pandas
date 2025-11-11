@@ -1,5 +1,5 @@
 [project]
-name = "awswrangler"
+name = "beehero_awswrangler"
 version = "3.14.0"
 description = "Pandas on AWS."
 authors = [{ name = "Amazon Web Services" }]
@@ -114,7 +114,7 @@ exclude = [
 ]
 
 [tool.hatch.build.targets.wheel]
-include = ["awswrangler"]
+include = ["beehero_awswrangler"]
 exclude = [
     "*.so",
     "*.pyc",

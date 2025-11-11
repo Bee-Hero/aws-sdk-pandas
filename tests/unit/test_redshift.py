@@ -14,9 +14,9 @@ import pytest
 import redshift_connector
 from redshift_connector.error import ProgrammingError
 
-import awswrangler as wr
-import awswrangler.pandas as pd
-from awswrangler import _utils
+import beehero_awswrangler as wr
+import beehero_awswrangler.pandas as pd
+from beehero_awswrangler import _utils
 
 from .._utils import (
     assert_pandas_equals,
@@ -31,7 +31,7 @@ from .._utils import (
     ts,
 )
 
-logging.getLogger("awswrangler").setLevel(logging.DEBUG)
+logging.getLogger("beehero_awswrangler").setLevel(logging.DEBUG)
 
 pytestmark = pytest.mark.distributed
 
@@ -893,7 +893,7 @@ def test_copy_from_files(
     databases_parameters: dict[str, Any],
     data_format: str,
 ) -> None:
-    from awswrangler import _utils
+    from beehero_awswrangler import _utils
 
     bucket, key = _utils.parse_path(f"{path}test.txt")
     boto3.client("s3").put_object(Body=b"", Bucket=bucket, Key=key)
@@ -975,7 +975,7 @@ def test_copy_from_files_geometry_column(
 
 
 def test_get_paths_from_manifest(path: str) -> None:
-    from awswrangler.redshift._utils import _get_paths_from_manifest
+    from beehero_awswrangler.redshift._utils import _get_paths_from_manifest
 
     manifest_content = {
         "entries": [

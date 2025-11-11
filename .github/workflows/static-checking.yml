@@ -42,7 +42,7 @@ jobs:
         run: uv run ruff check --output-format=github .
         working-directory: ${{ github.workspace }}
       - name: Run mypy check
-        run: uv run mypy --install-types --non-interactive awswrangler
+        run: uv run mypy --install-types --non-interactive beehero_awswrangler
         working-directory: ${{ github.workspace }}
       - name: Run documentation check
         run: uv run doc8 --max-line-length 120 docs/source

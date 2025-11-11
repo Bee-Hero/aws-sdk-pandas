@@ -6,10 +6,10 @@ from typing import Any, Iterator
 import boto3
 import pytest
 
-import awswrangler as wr
-import awswrangler.pandas as pd
-from awswrangler.data_api.rds import RdsDataApi
-from awswrangler.data_api.redshift import RedshiftDataApi
+import beehero_awswrangler as wr
+import beehero_awswrangler.pandas as pd
+from beehero_awswrangler.data_api.rds import RdsDataApi
+from beehero_awswrangler.data_api.redshift import RedshiftDataApi
 
 from .._utils import assert_pandas_equals, get_time_str_with_random_suffix
 

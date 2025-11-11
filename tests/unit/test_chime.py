@@ -2,9 +2,9 @@ import logging
 
 import pytest
 
-import awswrangler as wr
+import beehero_awswrangler as wr
 
-logging.getLogger("awswrangler").setLevel(logging.DEBUG)
+logging.getLogger("beehero_awswrangler").setLevel(logging.DEBUG)
 
 
 def test_chime_bad_input():

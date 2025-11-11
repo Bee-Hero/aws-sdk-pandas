@@ -7,7 +7,7 @@ import modin.pandas as pd
 import pytest
 from redshift_connector import Connection
 
-import awswrangler as wr
+import beehero_awswrangler as wr
 
 from .._utils import ExecutionTimer
 

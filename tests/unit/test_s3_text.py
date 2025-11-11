@@ -3,12 +3,12 @@ import logging
 import boto3
 import pytest
 
-import awswrangler as wr
-import awswrangler.pandas as pd
+import beehero_awswrangler as wr
+import beehero_awswrangler.pandas as pd
 
 from .._utils import is_pandas_2_x, is_ray_modin
 
-logging.getLogger("awswrangler").setLevel(logging.DEBUG)
+logging.getLogger("beehero_awswrangler").setLevel(logging.DEBUG)
 
 pytestmark = pytest.mark.distributed
 

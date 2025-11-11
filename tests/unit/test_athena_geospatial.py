@@ -2,7 +2,7 @@ import geopandas
 import pandas as pd
 import shapely
 
-import awswrangler as wr
+import beehero_awswrangler as wr
 
 
 def test_athena_geospatial(path, glue_table, glue_database):

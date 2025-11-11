@@ -11,13 +11,13 @@ import botocore.client
 import botocore.config
 import pytest
 
-logging.getLogger("awswrangler").setLevel(logging.DEBUG)
+logging.getLogger("beehero_awswrangler").setLevel(logging.DEBUG)
 
 if TYPE_CHECKING:
-    import awswrangler
+    import beehero_awswrangler
 
 
-def _urls_test(wr: "awswrangler", glue_database: str) -> None:
+def _urls_test(wr: "beehero_awswrangler", glue_database: str) -> None:
     original = botocore.client.ClientCreator.create_client
 
     def wrapper(self, **kwarg):
@@ -44,7 +44,7 @@ def _urls_test(wr: "awswrangler", glue_database: str) -> None:
 
 
 def test_basics(
-    wr: "awswrangler", path: str, glue_database: str, glue_table: str, workgroup0: str, workgroup1: str
+    wr: "beehero_awswrangler", path: str, glue_database: str, glue_table: str, workgroup0: str, workgroup1: str
 ) -> None:
     args = {"table": glue_table, "path": "", "columns_types": {"col0": "bigint"}}
 
@@ -138,7 +138,7 @@ def test_basics(
     _urls_test(wr, glue_database)
 
 
-def test_config_reset_nested_value(wr: "awswrangler") -> None:
+def test_config_reset_nested_value(wr: "beehero_awswrangler") -> None:
     wr.config.max_remote_cache_entries = 50
     wr.config.max_cache_seconds = 20
 
@@ -150,7 +150,7 @@ def test_config_reset_nested_value(wr: "awswrangler") -> None:
         wr.config.max_remote_cache_entries
 
 
-def test_athena_cache_configuration(wr: "awswrangler") -> None:
+def test_athena_cache_configuration(wr: "beehero_awswrangler") -> None:
     wr.config.max_remote_cache_entries = 50
     wr.config.max_cache_seconds = 20
 
@@ -161,7 +161,7 @@ def test_athena_cache_configuration(wr: "awswrangler") -> None:
     assert wr.config.athena_cache_settings["max_cache_seconds"] == 20
 
 
-def test_athena_cache_configuration_dict(wr: "awswrangler") -> None:
+def test_athena_cache_configuration_dict(wr: "beehero_awswrangler") -> None:
     wr.config.athena_cache_settings["max_remote_cache_entries"] = 50
     wr.config.athena_cache_settings["max_cache_seconds"] = 20
 
@@ -179,14 +179,14 @@ def test_athena_cache_configuration_dict(wr: "awswrangler") -> None:
         "WR_CLOUDWATCH_QUERY_WAIT_POLLING_DELAY": "0.05",
     },
 )
-def test_wait_time_configuration(wr: "awswrangler") -> None:
+def test_wait_time_configuration(wr: "beehero_awswrangler") -> None:
     wr.config.reset()
 
     assert wr.config.athena_query_wait_polling_delay == 0.1
     assert wr.config.cloudwatch_query_wait_polling_delay == 0.05
 
 
-def test_botocore_config(wr: "awswrangler", path: str) -> None:
+def test_botocore_config(wr: "beehero_awswrangler", path: str) -> None:
     original = botocore.client.ClientCreator.create_client
 
     # Default values for botocore.config.Config
@@ -240,7 +240,7 @@ def test_botocore_config(wr: "awswrangler", path: str) -> None:
     wr.config.reset()
 
 
-def test_chunk_size(wr: "awswrangler") -> None:
+def test_chunk_size(wr: "beehero_awswrangler") -> None:
     expected_chunksize = 123
 
     wr.config.chunksize = expected_chunksize
@@ -261,14 +261,14 @@ def test_chunk_size(wr: "awswrangler") -> None:
 
 
 @pytest.mark.parametrize("polling_delay", [None, 0.05, 0.1])
-def test_athena_wait_delay_config(wr: "awswrangler", glue_database: str, polling_delay: float | None) -> None:
+def test_athena_wait_delay_config(wr: "beehero_awswrangler", glue_database: str, polling_delay: float | None) -> None:
     if polling_delay:
         wr.config.athena_query_wait_polling_delay = polling_delay
     else:
         polling_delay = wr.athena._utils._QUERY_WAIT_POLLING_DELAY
         wr.config.reset("athena_query_wait_polling_delay")
 
-    with patch("awswrangler.athena._executions.wait_query", wraps=wr.athena.wait_query) as mock_wait_query:
+    with patch("beehero_awswrangler.athena._executions.wait_query", wraps=wr.athena.wait_query) as mock_wait_query:
         wr.athena.read_sql_query("SELECT 1 as col0", database=glue_database)
 
         mock_wait_query.assert_called_once()
@@ -276,11 +276,11 @@ def test_athena_wait_delay_config(wr: "awswrangler", glue_database: str, polling
         assert mock_wait_query.call_args[1]["athena_query_wait_polling_delay"] == polling_delay
 
 
-def test_athena_wait_delay_config_override(wr: "awswrangler", glue_database: str) -> None:
+def test_athena_wait_delay_config_override(wr: "beehero_awswrangler", glue_database: str) -> None:
     wr.config.athena_query_wait_polling_delay = 0.1
     polling_delay_argument = 0.15
 
-    with patch("awswrangler.athena._executions.wait_query", wraps=wr.athena.wait_query) as mock_wait_query:
+    with patch("beehero_awswrangler.athena._executions.wait_query", wraps=wr.athena.wait_query) as mock_wait_query:
         wr.athena.read_sql_query(
             "SELECT 1 as col0", database=glue_database, athena_query_wait_polling_delay=polling_delay_argument
         )
@@ -291,7 +291,7 @@ def test_athena_wait_delay_config_override(wr: "awswrangler", glue_database: str
 
 
 @pytest.mark.parametrize("suppress_warnings", [False, True])
-def test_load_from_env_variable(wr: "awswrangler", suppress_warnings: bool) -> None:
+def test_load_from_env_variable(wr: "beehero_awswrangler", suppress_warnings: bool) -> None:
     env_variable_value = "1" if suppress_warnings else ""
 
     with patch.dict(os.environ, {"WR_SUPPRESS_WARNINGS": env_variable_value}):

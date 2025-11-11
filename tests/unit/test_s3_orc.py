@@ -11,8 +11,8 @@ import numpy as np
 import pyarrow as pa
 import pytest
 
-import awswrangler as wr
-import awswrangler.pandas as pd
+import beehero_awswrangler as wr
+import beehero_awswrangler.pandas as pd
 
 from .._utils import (
     assert_pandas_equals,
@@ -21,7 +21,7 @@ from .._utils import (
     is_ray_modin,
 )
 
-logging.getLogger("awswrangler").setLevel(logging.DEBUG)
+logging.getLogger("beehero_awswrangler").setLevel(logging.DEBUG)
 
 pytestmark = pytest.mark.distributed
 

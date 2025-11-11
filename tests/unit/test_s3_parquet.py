@@ -13,9 +13,9 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 import pytest
 
-import awswrangler as wr
-import awswrangler.pandas as pd
-from awswrangler._distributed import MemoryFormatEnum
+import beehero_awswrangler as wr
+import beehero_awswrangler.pandas as pd
+from beehero_awswrangler._distributed import MemoryFormatEnum
 
 from .._utils import (
     assert_pandas_equals,
@@ -27,7 +27,7 @@ from .._utils import (
     to_pandas,
 )
 
-logging.getLogger("awswrangler").setLevel(logging.DEBUG)
+logging.getLogger("beehero_awswrangler").setLevel(logging.DEBUG)
 
 pytestmark = pytest.mark.distributed
 
@@ -744,7 +744,7 @@ def test_parquet_compression(path, compression) -> None:
     "schema", [None, pa.schema([pa.field("c0", pa.int64()), pa.field("c1", pa.int64()), pa.field("par", pa.string())])]
 )
 def test_empty_file(path, use_threads, schema):
-    from awswrangler import _utils
+    from beehero_awswrangler import _utils
 
     df = pd.DataFrame({"c0": [1, 2, 3], "c1": [None, None, None], "par": ["a", "b", "c"]})
     df.index = df.index.astype("Int64")

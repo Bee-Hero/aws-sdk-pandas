@@ -10,13 +10,13 @@ import numpy as np
 import pytest  # type: ignore
 from gremlin_python.process.traversal import Direction, T
 
-import awswrangler as wr
-import awswrangler.pandas as pd
-from awswrangler.neptune._client import BulkLoadParserConfiguration
+import beehero_awswrangler as wr
+import beehero_awswrangler.pandas as pd
+from beehero_awswrangler.neptune._client import BulkLoadParserConfiguration
 
 from .._utils import assert_columns_in_pandas_data_frame, extract_cloudformation_outputs
 
-logging.getLogger("awswrangler").setLevel(logging.DEBUG)
+logging.getLogger("beehero_awswrangler").setLevel(logging.DEBUG)
 
 pytestmark = pytest.mark.distributed
 

@@ -22,10 +22,10 @@ from pandas.testing import assert_frame_equal, assert_series_equal
 from pytest import FixtureRequest
 from typing_extensions import Literal
 
-import awswrangler as wr
-import awswrangler.pandas as pd
-from awswrangler._distributed import EngineEnum, MemoryFormatEnum
-from awswrangler._utils import try_it
+import beehero_awswrangler as wr
+import beehero_awswrangler.pandas as pd
+from beehero_awswrangler._distributed import EngineEnum, MemoryFormatEnum
+from beehero_awswrangler._utils import try_it
 
 is_ray_modin = wr.engine.get() == EngineEnum.RAY and wr.memory_format.get() == MemoryFormatEnum.MODIN
 is_pandas_2_x = False

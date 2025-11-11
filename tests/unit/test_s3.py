@@ -9,14 +9,14 @@ import botocore
 import pytest
 import pytz
 
-import awswrangler as wr
-import awswrangler.pandas as pd
+import beehero_awswrangler as wr
+import beehero_awswrangler.pandas as pd
 
 from .._utils import is_ray_modin
 
 API_CALL = botocore.client.BaseClient._make_api_call
 
-logging.getLogger("awswrangler").setLevel(logging.DEBUG)
+logging.getLogger("beehero_awswrangler").setLevel(logging.DEBUG)
 
 pytestmark = pytest.mark.distributed
 
@@ -96,7 +96,7 @@ def test_delete_objects_multiple_chunks(bucket: str, path: str, use_threads: boo
     for file_path in file_paths:
         wr.s3.to_csv(df, file_path)
 
-    with patch("awswrangler._utils.chunkify") as chunkify_function:
+    with patch("beehero_awswrangler._utils.chunkify") as chunkify_function:
         chunkify_function.return_value = [[p] for p in file_paths]
         wr.s3.delete_objects(path=file_paths, use_threads=use_threads)
 

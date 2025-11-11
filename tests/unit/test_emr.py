@@ -3,9 +3,9 @@ import time
 
 import pytest
 
-import awswrangler as wr
+import beehero_awswrangler as wr
 
-logging.getLogger("awswrangler").setLevel(logging.DEBUG)
+logging.getLogger("beehero_awswrangler").setLevel(logging.DEBUG)
 
 
 def emr_terminate_cluster_and_wait(cluster_id: str, timeout: int = 300, poll_interval: int = 10):

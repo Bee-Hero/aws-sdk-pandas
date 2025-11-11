@@ -5,12 +5,12 @@ import logging
 import boto3
 import pytest
 
-import awswrangler as wr
-import awswrangler.pandas as pd
+import beehero_awswrangler as wr
+import beehero_awswrangler.pandas as pd
 
 from .._utils import ensure_data_types_csv, get_df_csv
 
-logger = logging.getLogger("awswrangler")
+logger = logging.getLogger("beehero_awswrangler")
 logger.setLevel(logging.DEBUG)
 
 pytestmark = pytest.mark.distributed

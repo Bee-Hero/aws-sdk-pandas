@@ -9,12 +9,12 @@ import pytest
 from packaging import version
 from pg8000.dbapi import ProgrammingError
 
-import awswrangler as wr
-import awswrangler.pandas as pd
+import beehero_awswrangler as wr
+import beehero_awswrangler.pandas as pd
 
 from .._utils import ensure_data_types, get_df, is_ray_modin, pandas_equals
 
-logging.getLogger("awswrangler").setLevel(logging.DEBUG)
+logging.getLogger("beehero_awswrangler").setLevel(logging.DEBUG)
 
 pytestmark = pytest.mark.distributed
 

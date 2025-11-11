@@ -7,11 +7,11 @@ from typing import Any, Literal
 import boto3
 import pytest
 
-import awswrangler as wr
+import beehero_awswrangler as wr
 
 from .._utils import _get_unique_suffix
 
-logging.getLogger("awswrangler").setLevel(logging.DEBUG)
+logging.getLogger("beehero_awswrangler").setLevel(logging.DEBUG)
 
 
 def _get_emr_serverless_application(

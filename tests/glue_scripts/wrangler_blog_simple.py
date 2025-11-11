@@ -1,6 +1,6 @@
 import os
 
-import awswrangler as wr
+import beehero_awswrangler as wr
 
 workgroup_name = os.environ["athena-workgroup"]
 output_path = os.environ["output-path"]

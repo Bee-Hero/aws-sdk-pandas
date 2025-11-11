@@ -11,8 +11,8 @@ import pytest
 from boto3.dynamodb.conditions import Attr, Key
 from botocore.exceptions import ClientError
 
-import awswrangler as wr
-import awswrangler.pandas as pd
+import beehero_awswrangler as wr
+import beehero_awswrangler.pandas as pd
 
 from .._utils import assert_pandas_equals, is_ray_modin
 

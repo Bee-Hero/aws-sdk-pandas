@@ -9,7 +9,7 @@ import pytest
 import ray
 from modin.distributed.dataframe.pandas import unwrap_partitions
 
-import awswrangler as wr
+import beehero_awswrangler as wr
 
 from .._utils import ExecutionTimer
 

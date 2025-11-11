@@ -4,10 +4,10 @@ import pytest  # type: ignore
 from gremlin_python.process.traversal import T
 from gremlin_python.structure.graph import Edge, Path, Property, Vertex, VertexProperty
 
-import awswrangler as wr
-import awswrangler.pandas as pd
+import beehero_awswrangler as wr
+import beehero_awswrangler.pandas as pd
 
-logging.getLogger("awswrangler").setLevel(logging.DEBUG)
+logging.getLogger("beehero_awswrangler").setLevel(logging.DEBUG)
 
 pytestmark = pytest.mark.distributed
 

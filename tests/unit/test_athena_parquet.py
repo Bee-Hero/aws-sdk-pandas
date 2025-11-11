@@ -10,13 +10,13 @@ import numpy as np
 import pyarrow as pa
 import pytest
 
-import awswrangler as wr
-import awswrangler.pandas as pd
-from awswrangler._data_types import _split_fields
+import beehero_awswrangler as wr
+import beehero_awswrangler.pandas as pd
+from beehero_awswrangler._data_types import _split_fields
 
 from .._utils import ensure_data_types, get_df, get_df_cast, get_df_list, is_ray_modin, pandas_equals
 
-logging.getLogger("awswrangler").setLevel(logging.DEBUG)
+logging.getLogger("beehero_awswrangler").setLevel(logging.DEBUG)
 
 pytestmark = pytest.mark.distributed
 

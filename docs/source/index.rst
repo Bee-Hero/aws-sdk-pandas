@@ -6,7 +6,7 @@ Quick Start
     >>> pip install awswrangler
 
     >>> # Optional modules are installed with:
-    >>> pip install 'awswrangler[redshift]'
+    >>> pip install 'beehero_awswrangler[redshift]'
 
 .. code-block:: py3
 
